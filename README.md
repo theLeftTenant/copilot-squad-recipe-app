@@ -135,6 +135,16 @@ These issues don't affect the core recipe CRUD workflows used in Challenges 00�
 | [Data Assessment](docs/data-assessment.md) | Database schema and seed data |
 | [Responsible AI](docs/responsible-ai.md) | RAI assessment for AI workflows |
 
+## Copilot Hooks
+
+RecipeHub uses **Copilot Hooks** to enforce safe agent behavior. The `preToolUse` hook prevents:
+
+- **File writes outside approved directories** — agents can only modify files in `src/RecipeHub.Api/`, `src/RecipeHub.Web/`, and `.squad/`
+- **Project root writes** — prevents pollution of the repo root with temp files or misconfigured outputs
+- **Dangerous shell commands** — blocks `rm -rf`, `DROP TABLE`, `TRUNCATE`, and other irreversible operations
+
+The hook is configured in `.copilot/copilot-hooks.json` and implemented as a zero-dependency shell script.
+
 ## Contributing
 
 This is a hackathon starter template. For issues or improvements:

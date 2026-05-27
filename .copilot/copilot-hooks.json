@@ -1,0 +1,7 @@
+{
+  "hooks": {
+    "preToolUse": {
+      "command": ".copilot/hooks/preToolUse.sh"
+    }
+  }
+}
