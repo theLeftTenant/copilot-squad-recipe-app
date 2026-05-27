@@ -8,6 +8,9 @@
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "lint": "eslint .",
+    "lint:strict": "eslint . --max-warnings 0",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx,css}\" \"vite.config.ts\"",
+    "format:write": "prettier --write \"src/**/*.{ts,tsx,css}\" \"vite.config.ts\"",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:ui": "vitest --ui"

@@ -16,5 +16,15 @@
   "main": "index.js",
   "directories": {
     "test": "tests"
+  },
+  "scripts": {
+    "prepare": "husky",
+    "precommit": "npm run precommit:api && npm run precommit:web:lint && npm run precommit:web:format",
+    "precommit:api": "dotnet format --verify-no-changes src/RecipeHub.Api/RecipeHub.Api.csproj --verbosity minimal",
+    "precommit:web:lint": "npm --prefix src/RecipeHub.Web run lint:strict",
+    "precommit:web:format": "npm --prefix src/RecipeHub.Web run format:check"
+  },
+  "devDependencies": {
+    "husky": "^9.1.7"
   }
 }
