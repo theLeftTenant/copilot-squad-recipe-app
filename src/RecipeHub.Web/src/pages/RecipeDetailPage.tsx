@@ -12,7 +12,7 @@ export function RecipeDetailPage() {
   const deleteMutation = useDeleteRecipe();
 
   if (isLoading) {
-    return <Spinner label="Loading recipe…" />;
+    return <Spinner label='Loading recipe…' />;
   }
 
   if (isError || !data || numericId === undefined) {
@@ -32,7 +32,9 @@ export function RecipeDetailPage() {
     });
   };
 
-  const sortedSteps = [...data.steps].sort((a, b) => a.stepNumber - b.stepNumber);
+  const sortedSteps = [...data.steps].sort(
+    (a, b) => a.stepNumber - b.stepNumber,
+  );
 
   return (
     <article>
@@ -46,7 +48,7 @@ export function RecipeDetailPage() {
         </div>
         <div className={styles.tags}>
           {data.tagNames.map((t) => (
-            <Badge key={t} variant="info">
+            <Badge key={t} variant='info'>
               {t}
             </Badge>
           ))}
@@ -73,14 +75,14 @@ export function RecipeDetailPage() {
 
       <div className={styles.actions}>
         <Link to={`/recipes/${numericId}/edit`}>
-          <Button variant="primary">Edit</Button>
+          <Button variant='primary'>Edit</Button>
         </Link>
         <Link to={`/recipes/${numericId}/cook`}>
-          <Button variant="secondary">Cook Mode</Button>
+          <Button variant='secondary'>Cook Mode</Button>
         </Link>
         <ShareButton recipeId={numericId} />
         <Button
-          variant="danger"
+          variant='danger'
           onClick={handleDelete}
           loading={deleteMutation.isPending}
         >

@@ -9,8 +9,14 @@ export type BadgeProps = {
   className?: string;
 };
 
-export function Badge({ variant = 'default', children, className }: BadgeProps) {
-  const classes = [styles.badge, styles[variant], className].filter(Boolean).join(' ');
+export function Badge({
+  variant = 'default',
+  children,
+  className,
+}: BadgeProps) {
+  const classes = [styles.badge, styles[variant], className]
+    .filter(Boolean)
+    .join(' ');
   return <span className={classes}>{children}</span>;
 }
 

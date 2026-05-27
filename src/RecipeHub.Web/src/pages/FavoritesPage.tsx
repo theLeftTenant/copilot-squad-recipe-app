@@ -13,7 +13,7 @@ export function FavoritesPage() {
     return (
       <div className={styles.wrapper}>
         <h1>Favorites</h1>
-        <Spinner label="Loading your favorites…" />
+        <Spinner label='Loading your favorites…' />
       </div>
     );
   }
@@ -22,12 +22,12 @@ export function FavoritesPage() {
     return (
       <div className={styles.wrapper}>
         <h1>Favorites</h1>
-        <p className={styles.error} role="alert">
+        <p className={styles.error} role='alert'>
           Couldn't load your favorites.{' '}
           {favorites.error instanceof Error ? favorites.error.message : ''}
         </p>
-        <Link to="/recipes">
-          <Button variant="secondary">Back to recipes</Button>
+        <Link to='/recipes'>
+          <Button variant='secondary'>Back to recipes</Button>
         </Link>
       </div>
     );
@@ -36,12 +36,14 @@ export function FavoritesPage() {
   return (
     <div className={styles.wrapper}>
       <h1>Favorites</h1>
-      <p className={styles.note}>Recipes you’ve saved for a quick return trip.</p>
+      <p className={styles.note}>
+        Recipes you’ve saved for a quick return trip.
+      </p>
       {recipes.length === 0 ? (
         <div className={styles.empty}>
           <p>You haven’t saved any favorites yet.</p>
-          <Link to="/recipes">
-            <Button variant="secondary">Browse recipes</Button>
+          <Link to='/recipes'>
+            <Button variant='secondary'>Browse recipes</Button>
           </Link>
         </div>
       ) : (

@@ -20,19 +20,19 @@ export function SharedRecipePage() {
   return (
     <div className={styles.page}>
       <header className={styles.topBar}>
-        <Link to="/" className={styles.brand}>
+        <Link to='/' className={styles.brand}>
           RecipeHub
         </Link>
       </header>
 
       <main className={styles.main}>
         {isLoading ? (
-          <Spinner label="Loading shared recipe…" />
+          <Spinner label='Loading shared recipe…' />
         ) : isError && error instanceof ApiError && error.status === 404 ? (
           <div className={styles.notFound}>
             <h1>Recipe not available</h1>
             <p>This shared recipe is no longer available.</p>
-            <Link to="/">Browse recipes on RecipeHub</Link>
+            <Link to='/'>Browse recipes on RecipeHub</Link>
           </div>
         ) : isError || !data ? (
           <div className={styles.error}>
@@ -50,7 +50,7 @@ export function SharedRecipePage() {
             </div>
             <div className={styles.tags}>
               {data.tagNames.map((t) => (
-                <Badge key={t} variant="info">
+                <Badge key={t} variant='info'>
                   {t}
                 </Badge>
               ))}
@@ -76,7 +76,7 @@ export function SharedRecipePage() {
               </ol>
             </section>
             <footer className={styles.footer}>
-              <Link to="/">View on RecipeHub</Link>
+              <Link to='/'>View on RecipeHub</Link>
             </footer>
           </article>
         )}

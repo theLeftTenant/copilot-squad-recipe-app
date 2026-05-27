@@ -29,7 +29,7 @@ function resolveBaseUrl(): string {
   }
   if (import.meta.env.DEV) {
     console.warn(
-      '[api] VITE_API_BASE_URL not set; falling back to http://localhost:5000'
+      '[api] VITE_API_BASE_URL not set; falling back to http://localhost:5000',
     );
     return 'http://localhost:5000';
   }
@@ -40,7 +40,7 @@ const BASE_URL = resolveBaseUrl();
 
 async function request<T>(
   path: string,
-  init: RequestInit & { parseJson?: boolean } = {}
+  init: RequestInit & { parseJson?: boolean } = {},
 ): Promise<T> {
   const { parseJson = true, headers, ...rest } = init;
 
@@ -66,7 +66,8 @@ async function request<T>(
     const message =
       (typeof body === 'object' && body !== null && 'title' in body
         ? String((body as { title: unknown }).title)
-        : undefined) ?? `Request failed: ${response.status} ${response.statusText}`;
+        : undefined) ??
+      `Request failed: ${response.status} ${response.statusText}`;
     throw new ApiError(response.status, message, body);
   }
 

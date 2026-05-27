@@ -9,7 +9,13 @@ export type CardProps = {
   className?: string;
 };
 
-export function Card({ title, footer, onClick, children, className }: CardProps) {
+export function Card({
+  title,
+  footer,
+  onClick,
+  children,
+  className,
+}: CardProps) {
   const clickable = typeof onClick === 'function';
 
   const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {

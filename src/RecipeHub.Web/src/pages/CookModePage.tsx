@@ -10,28 +10,29 @@ function formatSeconds(total: number): string {
 }
 
 function StepTimer({ minutes }: { minutes: number }) {
-  const { remainingSeconds, isRunning, start, pause, reset } = useTimer(minutes);
+  const { remainingSeconds, isRunning, start, pause, reset } =
+    useTimer(minutes);
   return (
     <div className={styles.timer}>
-      <span className={styles.timerDisplay} aria-live="polite">
+      <span className={styles.timerDisplay} aria-live='polite'>
         {formatSeconds(remainingSeconds)}
       </span>
       <div className={styles.timerControls}>
         {isRunning ? (
-          <Button size="sm" variant="secondary" onClick={pause}>
+          <Button size='sm' variant='secondary' onClick={pause}>
             Pause
           </Button>
         ) : (
           <Button
-            size="sm"
-            variant="primary"
+            size='sm'
+            variant='primary'
             onClick={start}
             disabled={remainingSeconds === 0}
           >
             Start
           </Button>
         )}
-        <Button size="sm" variant="ghost" onClick={reset}>
+        <Button size='sm' variant='ghost' onClick={reset}>
           Reset
         </Button>
       </div>
@@ -50,7 +51,7 @@ export function CookModePage() {
   }
 
   if (isLoading && !step) {
-    return <Spinner label="Loading step…" />;
+    return <Spinner label='Loading step…' />;
   }
 
   if (error || !step) {
@@ -80,14 +81,17 @@ export function CookModePage() {
       </section>
 
       {step.timerMinutes != null && step.timerMinutes > 0 ? (
-        <StepTimer key={`${currentStep}-${step.timerMinutes}`} minutes={step.timerMinutes} />
+        <StepTimer
+          key={`${currentStep}-${step.timerMinutes}`}
+          minutes={step.timerMinutes}
+        />
       ) : null}
 
-      <nav className={styles.controls} aria-label="Step navigation">
-        <Button variant="secondary" onClick={prev} disabled={!canPrev}>
+      <nav className={styles.controls} aria-label='Step navigation'>
+        <Button variant='secondary' onClick={prev} disabled={!canPrev}>
           Previous
         </Button>
-        <Button variant="primary" onClick={next} disabled={!canNext}>
+        <Button variant='primary' onClick={next} disabled={!canNext}>
           Next
         </Button>
       </nav>

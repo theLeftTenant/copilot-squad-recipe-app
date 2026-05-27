@@ -21,7 +21,7 @@ function App() {
   if (hideChrome) {
     return (
       <Routes>
-        <Route path="/shared/:token" element={<SharedRecipePage />} />
+        <Route path='/shared/:token' element={<SharedRecipePage />} />
       </Routes>
     );
   }
@@ -29,28 +29,28 @@ function App() {
   return (
     <div className={styles.app}>
       <nav className={styles.nav}>
-        <NavLink to="/" className={styles.brand}>
+        <NavLink to='/' className={styles.brand}>
           RecipeHub
         </NavLink>
-        <NavLink to="/" end className={navLinkClass}>
+        <NavLink to='/' end className={navLinkClass}>
           Home
         </NavLink>
-        <NavLink to="/recipes" className={navLinkClass}>
+        <NavLink to='/recipes' className={navLinkClass}>
           Recipes
         </NavLink>
-        <NavLink to="/favorites" className={navLinkClass}>
+        <NavLink to='/favorites' className={navLinkClass}>
           Favorites
         </NavLink>
       </nav>
       <main>
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/recipes" element={<RecipeListPage />} />
-          <Route path="/recipes/new" element={<RecipeEditPage />} />
-          <Route path="/recipes/:id" element={<RecipeDetailPage />} />
-          <Route path="/recipes/:id/edit" element={<RecipeEditPage />} />
-          <Route path="/recipes/:id/cook" element={<CookModePage />} />
-          <Route path="/favorites" element={<FavoritesPage />} />
+          <Route path='/' element={<HomePage />} />
+          <Route path='/recipes' element={<RecipeListPage />} />
+          <Route path='/recipes/new' element={<RecipeEditPage />} />
+          <Route path='/recipes/:id' element={<RecipeDetailPage />} />
+          <Route path='/recipes/:id/edit' element={<RecipeEditPage />} />
+          <Route path='/recipes/:id/cook' element={<CookModePage />} />
+          <Route path='/favorites' element={<FavoritesPage />} />
         </Routes>
       </main>
     </div>

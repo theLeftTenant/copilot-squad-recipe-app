@@ -20,7 +20,7 @@ export function RecipeListPage() {
   const active = hasFilters ? searchResults : allRecipes;
   const recipes: Recipe[] = active.data ?? [];
   const favoriteIds = new Set(
-    (favorites.data ?? []).map((favorite) => favorite.recipeId)
+    (favorites.data ?? []).map((favorite) => favorite.recipeId),
   );
   const favoritesDisabled = favorites.isLoading || favorites.isError;
   const favoritesUnavailable = favorites.isError;
@@ -33,13 +33,13 @@ export function RecipeListPage() {
       </div>
       <FilterPanel selectedTag={tag} onTagChange={setTag} />
       {favoritesUnavailable ? (
-        <div className={styles.notice} role="alert">
+        <div className={styles.notice} role='alert'>
           Favorites are temporarily unavailable. You can still browse recipes.
         </div>
       ) : null}
 
       {active.isLoading ? (
-        <Spinner label="Loading recipes…" />
+        <Spinner label='Loading recipes…' />
       ) : active.isError ? (
         <div className={styles.error}>
           Couldn't load recipes.{' '}
@@ -58,7 +58,9 @@ export function RecipeListPage() {
               isFavorite={favoriteIds.has(r.id)}
               favoritesDisabled={favoritesDisabled}
               favoritesNotice={
-                favoritesUnavailable ? 'Favorites are unavailable right now.' : undefined
+                favoritesUnavailable
+                  ? 'Favorites are unavailable right now.'
+                  : undefined
               }
               onClick={() => navigate(`/recipes/${r.id}`)}
             />

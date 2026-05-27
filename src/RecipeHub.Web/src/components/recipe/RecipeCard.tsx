@@ -32,10 +32,12 @@ export function RecipeCard({
       }
       onClick={onClick}
     >
-      <p className={styles.description}>{recipe.description ?? 'No description.'}</p>
+      <p className={styles.description}>
+        {recipe.description ?? 'No description.'}
+      </p>
       <div className={styles.tags}>
         {recipe.tagNames.map((tag) => (
-          <Badge key={tag} variant="info">
+          <Badge key={tag} variant='info'>
             {tag}
           </Badge>
         ))}

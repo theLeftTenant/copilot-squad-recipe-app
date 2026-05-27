@@ -2,12 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Button, Spinner } from '../components/ui';
 import type { CreateRecipeRequest, Difficulty, RecipeStep } from '../api';
-import {
-  useCreateRecipe,
-  useRecipe,
-  useTags,
-  useUpdateRecipe,
-} from '../hooks';
+import { useCreateRecipe, useRecipe, useTags, useUpdateRecipe } from '../hooks';
 import styles from './RecipeEditPage.module.css';
 
 type StepDraft = {
@@ -58,7 +53,8 @@ function buildRequest(form: FormState): CreateRecipeRequest {
 
   return {
     title: form.title.trim(),
-    description: form.description.trim() === '' ? null : form.description.trim(),
+    description:
+      form.description.trim() === '' ? null : form.description.trim(),
     difficulty: form.difficulty,
     prepTimeMinutes: form.prepTimeMinutes,
     cookTimeMinutes: form.cookTimeMinutes,
@@ -107,7 +103,7 @@ export function RecipeEditPage() {
   const availableTags = useMemo(() => tagsQuery.data ?? [], [tagsQuery.data]);
 
   if (isEdit && recipeQuery.isLoading) {
-    return <Spinner label="Loading recipe…" />;
+    return <Spinner label='Loading recipe…' />;
   }
 
   const updateStep = (index: number, patch: Partial<StepDraft>) => {
@@ -188,10 +184,10 @@ export function RecipeEditPage() {
       <h1>{isEdit ? 'Edit Recipe' : 'New Recipe'}</h1>
       <form className={styles.form} onSubmit={handleSubmit} noValidate>
         <div className={styles.field}>
-          <label htmlFor="title">Title *</label>
+          <label htmlFor='title'>Title *</label>
           <input
-            id="title"
-            type="text"
+            id='title'
+            type='text'
             value={form.title}
             onChange={(e) => setForm((f) => ({ ...f, title: e.target.value }))}
           />
@@ -201,9 +197,9 @@ export function RecipeEditPage() {
         </div>
 
         <div className={styles.field}>
-          <label htmlFor="description">Description</label>
+          <label htmlFor='description'>Description</label>
           <textarea
-            id="description"
+            id='description'
             value={form.description}
             onChange={(e) =>
               setForm((f) => ({ ...f, description: e.target.value }))
@@ -213,9 +209,9 @@ export function RecipeEditPage() {
 
         <div className={styles.row}>
           <div className={styles.field}>
-            <label htmlFor="difficulty">Difficulty</label>
+            <label htmlFor='difficulty'>Difficulty</label>
             <select
-              id="difficulty"
+              id='difficulty'
               value={form.difficulty}
               onChange={(e) =>
                 setForm((f) => ({
@@ -224,17 +220,17 @@ export function RecipeEditPage() {
                 }))
               }
             >
-              <option value="Easy">Easy</option>
-              <option value="Medium">Medium</option>
-              <option value="Hard">Hard</option>
+              <option value='Easy'>Easy</option>
+              <option value='Medium'>Medium</option>
+              <option value='Hard'>Hard</option>
             </select>
           </div>
 
           <div className={styles.field}>
-            <label htmlFor="prep">Prep (min)</label>
+            <label htmlFor='prep'>Prep (min)</label>
             <input
-              id="prep"
-              type="number"
+              id='prep'
+              type='number'
               min={0}
               value={form.prepTimeMinutes}
               onChange={(e) =>
@@ -247,10 +243,10 @@ export function RecipeEditPage() {
           </div>
 
           <div className={styles.field}>
-            <label htmlFor="cook">Cook (min)</label>
+            <label htmlFor='cook'>Cook (min)</label>
             <input
-              id="cook"
-              type="number"
+              id='cook'
+              type='number'
               min={0}
               value={form.cookTimeMinutes}
               onChange={(e) =>
@@ -263,10 +259,10 @@ export function RecipeEditPage() {
           </div>
 
           <div className={styles.field}>
-            <label htmlFor="servings">Servings</label>
+            <label htmlFor='servings'>Servings</label>
             <input
-              id="servings"
-              type="number"
+              id='servings'
+              type='number'
               min={1}
               value={form.servings}
               onChange={(e) =>
@@ -280,10 +276,10 @@ export function RecipeEditPage() {
         </div>
 
         <div className={styles.field}>
-          <label htmlFor="imageUrl">Image URL</label>
+          <label htmlFor='imageUrl'>Image URL</label>
           <input
-            id="imageUrl"
-            type="url"
+            id='imageUrl'
+            type='url'
             value={form.imageUrl}
             onChange={(e) =>
               setForm((f) => ({ ...f, imageUrl: e.target.value }))
@@ -295,14 +291,14 @@ export function RecipeEditPage() {
           <label>Tags</label>
           <div className={styles.tags}>
             {tagsQuery.isLoading ? (
-              <Spinner size="sm" label="Loading tags…" />
+              <Spinner size='sm' label='Loading tags…' />
             ) : availableTags.length === 0 ? (
               <span>No tags available.</span>
             ) : (
               availableTags.map((t) => (
                 <label key={t.id} className={styles.tagCheck}>
                   <input
-                    type="checkbox"
+                    type='checkbox'
                     checked={form.tags.includes(t.name)}
                     onChange={() => toggleTag(t.name)}
                   />
@@ -320,44 +316,44 @@ export function RecipeEditPage() {
               <div key={idx} className={styles.stepRow}>
                 <span className={styles.stepNumber}>{idx + 1}.</span>
                 <input
-                  type="text"
-                  placeholder="Instruction"
+                  type='text'
+                  placeholder='Instruction'
                   value={step.instruction}
                   onChange={(e) =>
                     updateStep(idx, { instruction: e.target.value })
                   }
                 />
                 <input
-                  type="number"
+                  type='number'
                   min={0}
-                  placeholder="Timer (min)"
+                  placeholder='Timer (min)'
                   value={step.timerMinutes}
                   onChange={(e) =>
                     updateStep(idx, { timerMinutes: e.target.value })
                   }
                 />
                 <Button
-                  type="button"
-                  variant="ghost"
-                  size="sm"
+                  type='button'
+                  variant='ghost'
+                  size='sm'
                   onClick={() => moveStep(idx, -1)}
                   disabled={idx === 0}
                 >
                   ↑
                 </Button>
                 <Button
-                  type="button"
-                  variant="ghost"
-                  size="sm"
+                  type='button'
+                  variant='ghost'
+                  size='sm'
                   onClick={() => moveStep(idx, 1)}
                   disabled={idx === form.steps.length - 1}
                 >
                   ↓
                 </Button>
                 <Button
-                  type="button"
-                  variant="danger"
-                  size="sm"
+                  type='button'
+                  variant='danger'
+                  size='sm'
                   onClick={() => removeStep(idx)}
                   disabled={form.steps.length === 1}
                 >
@@ -367,7 +363,7 @@ export function RecipeEditPage() {
             ))}
           </div>
           <div>
-            <Button type="button" variant="ghost" size="sm" onClick={addStep}>
+            <Button type='button' variant='ghost' size='sm' onClick={addStep}>
               + Add step
             </Button>
           </div>
@@ -381,12 +377,12 @@ export function RecipeEditPage() {
         ) : null}
 
         <div className={styles.actions}>
-          <Button type="submit" variant="primary" loading={submitting}>
+          <Button type='submit' variant='primary' loading={submitting}>
             {isEdit ? 'Save Changes' : 'Create Recipe'}
           </Button>
           <Button
-            type="button"
-            variant="ghost"
+            type='button'
+            variant='ghost'
             onClick={() => navigate('/recipes')}
           >
             Cancel

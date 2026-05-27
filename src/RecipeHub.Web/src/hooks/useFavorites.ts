@@ -39,36 +39,43 @@ export function useToggleFavorite() {
     { previous: FavoriteRecipe[] | undefined }
   >({
     mutationFn: ({ recipe, isFavorite }) =>
-      isFavorite ? apiClient.removeFavorite(recipe.id) : apiClient.addFavorite(recipe.id),
+      isFavorite
+        ? apiClient.removeFavorite(recipe.id)
+        : apiClient.addFavorite(recipe.id),
     onMutate: async ({ recipe, isFavorite }) => {
       await queryClient.cancelQueries({ queryKey: favoriteKeys.all });
-      const previous = queryClient.getQueryData<FavoriteRecipe[]>(favoriteKeys.all);
+      const previous = queryClient.getQueryData<FavoriteRecipe[]>(
+        favoriteKeys.all,
+      );
 
-      queryClient.setQueryData<FavoriteRecipe[]>(favoriteKeys.all, (current = []) => {
-        if (isFavorite) {
-          return current.filter((item) => item.recipeId !== recipe.id);
-        }
+      queryClient.setQueryData<FavoriteRecipe[]>(
+        favoriteKeys.all,
+        (current = []) => {
+          if (isFavorite) {
+            return current.filter((item) => item.recipeId !== recipe.id);
+          }
 
-        if (current.some((item) => item.recipeId === recipe.id)) {
-          return current;
-        }
+          if (current.some((item) => item.recipeId === recipe.id)) {
+            return current;
+          }
 
-        return [
-          {
-            recipeId: recipe.id,
-            title: recipe.title,
-            description: recipe.description,
-            difficulty: recipe.difficulty,
-            prepTimeMinutes: recipe.prepTimeMinutes,
-            cookTimeMinutes: recipe.cookTimeMinutes,
-            servings: recipe.servings,
-            imageUrl: recipe.imageUrl,
-            tagNames: recipe.tagNames,
-            favoritedAt: new Date().toISOString(),
-          },
-          ...current,
-        ];
-      });
+          return [
+            {
+              recipeId: recipe.id,
+              title: recipe.title,
+              description: recipe.description,
+              difficulty: recipe.difficulty,
+              prepTimeMinutes: recipe.prepTimeMinutes,
+              cookTimeMinutes: recipe.cookTimeMinutes,
+              servings: recipe.servings,
+              imageUrl: recipe.imageUrl,
+              tagNames: recipe.tagNames,
+              favoritedAt: new Date().toISOString(),
+            },
+            ...current,
+          ];
+        },
+      );
 
       return { previous };
     },

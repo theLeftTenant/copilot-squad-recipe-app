@@ -36,8 +36,8 @@ export function FavoriteButton({
   return (
     <span className={styles.wrapper}>
       <Button
-        variant="ghost"
-        size="sm"
+        variant='ghost'
+        size='sm'
         className={`${styles.button} ${isFavorite ? styles.active : ''}`}
         onClick={handleClick}
         onKeyDown={handleKeyDown}
@@ -50,11 +50,11 @@ export function FavoriteButton({
             : `Save ${recipe.title} to favorites`
         }
       >
-        <span aria-hidden="true">{isFavorite ? '♥' : '♡'}</span>
+        <span aria-hidden='true'>{isFavorite ? '♥' : '♡'}</span>
         {isFavorite ? 'Saved' : 'Save'}
       </Button>
       {mutation.isError ? (
-        <span className={styles.error} role="alert">
+        <span className={styles.error} role='alert'>
           Couldn't update favorite.
         </span>
       ) : null}

@@ -11,7 +11,7 @@ export function HomePage() {
 
   const featured = (data ?? []).slice(0, 3);
   const favoriteIds = new Set(
-    (favorites.data ?? []).map((favorite) => favorite.recipeId)
+    (favorites.data ?? []).map((favorite) => favorite.recipeId),
   );
   const favoritesDisabled = favorites.isLoading || favorites.isError;
   const favoritesUnavailable = favorites.isError;
@@ -24,13 +24,13 @@ export function HomePage() {
           Discover, create, and cook your favorite recipes.
         </p>
         <div className={styles.cta}>
-          <Link to="/recipes">
-            <Button variant="primary" size="lg">
+          <Link to='/recipes'>
+            <Button variant='primary' size='lg'>
               Browse Recipes
             </Button>
           </Link>
-          <Link to="/recipes/new">
-            <Button variant="ghost" size="lg">
+          <Link to='/recipes/new'>
+            <Button variant='ghost' size='lg'>
               Add Recipe
             </Button>
           </Link>
@@ -43,7 +43,7 @@ export function HomePage() {
           <p className={styles.notice}>Favorites are unavailable right now.</p>
         ) : null}
         {isLoading ? (
-          <Spinner label="Loading featured recipes…" />
+          <Spinner label='Loading featured recipes…' />
         ) : featured.length === 0 ? (
           <p>No recipes yet. Be the first to add one!</p>
         ) : (
@@ -55,7 +55,9 @@ export function HomePage() {
                 isFavorite={favoriteIds.has(r.id)}
                 favoritesDisabled={favoritesDisabled}
                 favoritesNotice={
-                  favoritesUnavailable ? 'Favorites are unavailable right now.' : undefined
+                  favoritesUnavailable
+                    ? 'Favorites are unavailable right now.'
+                    : undefined
                 }
                 onClick={() => navigate(`/recipes/${r.id}`)}
               />

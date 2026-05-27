@@ -1,6 +1,10 @@
 export { useRecipes, useRecipe } from './useRecipes';
 export { useTags } from './useTags';
-export { favoriteRecipeToRecipe, useFavorites, useToggleFavorite } from './useFavorites';
+export {
+  favoriteRecipeToRecipe,
+  useFavorites,
+  useToggleFavorite,
+} from './useFavorites';
 export {
   useCreateRecipe,
   useUpdateRecipe,

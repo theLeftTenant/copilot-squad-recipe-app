@@ -59,7 +59,7 @@ function renderApp(initialEntries = ['/recipes']) {
       <MemoryRouter initialEntries={initialEntries}>
         <App />
       </MemoryRouter>
-    </QueryClientProvider>
+    </QueryClientProvider>,
   );
 }
 
@@ -78,9 +78,11 @@ describe('favorites flow', () => {
     renderApp(['/favorites']);
 
     expect(
-      await screen.findByText('You haven’t saved any favorites yet.')
+      await screen.findByText('You haven’t saved any favorites yet.'),
     ).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'Browse recipes' })).toBeInTheDocument();
+    expect(
+      screen.getByRole('link', { name: 'Browse recipes' }),
+    ).toBeInTheDocument();
   });
 
   it('adds a recipe to favorites and shows it on the favorites page', async () => {
@@ -88,13 +90,20 @@ describe('favorites flow', () => {
 
     vi.spyOn(apiClient, 'listRecipes').mockResolvedValue(recipes);
     vi.spyOn(apiClient, 'listTags').mockResolvedValue([]);
-    vi.spyOn(apiClient, 'listFavorites').mockImplementation(async () => favoriteRecipes);
-    vi.spyOn(apiClient, 'addFavorite').mockImplementation(async (recipeId: number) => {
-      const recipe = recipes.find((item) => item.id === recipeId);
-      if (recipe && !favoriteRecipes.some((item) => item.recipeId === recipe.id)) {
-        favoriteRecipes = [toFavorite(recipe), ...favoriteRecipes];
-      }
-    });
+    vi.spyOn(apiClient, 'listFavorites').mockImplementation(
+      async () => favoriteRecipes,
+    );
+    vi.spyOn(apiClient, 'addFavorite').mockImplementation(
+      async (recipeId: number) => {
+        const recipe = recipes.find((item) => item.id === recipeId);
+        if (
+          recipe &&
+          !favoriteRecipes.some((item) => item.recipeId === recipe.id)
+        ) {
+          favoriteRecipes = [toFavorite(recipe), ...favoriteRecipes];
+        }
+      },
+    );
     vi.spyOn(apiClient, 'removeFavorite').mockResolvedValue();
 
     renderApp();
@@ -102,7 +111,7 @@ describe('favorites flow', () => {
 
     await screen.findByText('Smoky Chili');
     await user.click(
-      screen.getByRole('button', { name: 'Save Smoky Chili to favorites' })
+      screen.getByRole('button', { name: 'Save Smoky Chili to favorites' }),
     );
 
     await waitFor(() => {
@@ -111,11 +120,15 @@ describe('favorites flow', () => {
 
     await waitFor(() => {
       expect(
-        screen.getByRole('button', { name: 'Remove Smoky Chili from favorites' })
+        screen.getByRole('button', {
+          name: 'Remove Smoky Chili from favorites',
+        }),
       ).toBeInTheDocument();
     });
 
-    expect(screen.getByRole('heading', { name: 'Recipes' })).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { name: 'Recipes' }),
+    ).toBeInTheDocument();
 
     await user.click(screen.getByRole('link', { name: 'Favorites' }));
 
@@ -128,18 +141,24 @@ describe('favorites flow', () => {
 
     vi.spyOn(apiClient, 'listRecipes').mockResolvedValue(recipes);
     vi.spyOn(apiClient, 'listTags').mockResolvedValue([]);
-    vi.spyOn(apiClient, 'listFavorites').mockImplementation(async () => favoriteRecipes);
+    vi.spyOn(apiClient, 'listFavorites').mockImplementation(
+      async () => favoriteRecipes,
+    );
     vi.spyOn(apiClient, 'addFavorite').mockResolvedValue();
-    vi.spyOn(apiClient, 'removeFavorite').mockImplementation(async (recipeId: number) => {
-      favoriteRecipes = favoriteRecipes.filter((item) => item.recipeId !== recipeId);
-    });
+    vi.spyOn(apiClient, 'removeFavorite').mockImplementation(
+      async (recipeId: number) => {
+        favoriteRecipes = favoriteRecipes.filter(
+          (item) => item.recipeId !== recipeId,
+        );
+      },
+    );
 
     renderApp();
     const user = userEvent.setup();
 
     await screen.findByText('Smoky Chili');
     await user.click(
-      screen.getByRole('button', { name: 'Remove Smoky Chili from favorites' })
+      screen.getByRole('button', { name: 'Remove Smoky Chili from favorites' }),
     );
 
     await waitFor(() => {
@@ -149,7 +168,7 @@ describe('favorites flow', () => {
     await user.click(screen.getByRole('link', { name: 'Favorites' }));
 
     expect(
-      await screen.findByText('You haven’t saved any favorites yet.')
+      await screen.findByText('You haven’t saved any favorites yet.'),
     ).toBeInTheDocument();
   });
 
@@ -157,7 +176,7 @@ describe('favorites flow', () => {
     vi.spyOn(apiClient, 'listRecipes').mockResolvedValue(recipes);
     vi.spyOn(apiClient, 'listTags').mockResolvedValue([]);
     vi.spyOn(apiClient, 'listFavorites').mockRejectedValue(
-      new Error('Favorites service is down')
+      new Error('Favorites service is down'),
     );
     vi.spyOn(apiClient, 'addFavorite').mockResolvedValue();
     vi.spyOn(apiClient, 'removeFavorite').mockResolvedValue();
@@ -165,7 +184,7 @@ describe('favorites flow', () => {
     renderApp(['/favorites']);
 
     expect(await screen.findByRole('alert')).toHaveTextContent(
-      "Couldn't load your favorites. Favorites service is down"
+      "Couldn't load your favorites. Favorites service is down",
     );
   });
 });
