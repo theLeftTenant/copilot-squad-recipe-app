@@ -1,5 +1,6 @@
 export { useRecipes, useRecipe } from './useRecipes';
 export { useTags } from './useTags';
+export { favoriteRecipeToRecipe, useFavorites, useToggleFavorite } from './useFavorites';
 export {
   useCreateRecipe,
   useUpdateRecipe,
@@ -11,4 +12,4 @@ export { useSearch } from './useSearch';
 export type { UseSearchArgs } from './useSearch';
 export { useTimer } from './useTimer';
 export type { UseTimerResult } from './useTimer';
-export { recipeKeys, tagKeys, shareKeys } from './queryKeys';
+export { favoriteKeys, recipeKeys, shareKeys, tagKeys } from './queryKeys';

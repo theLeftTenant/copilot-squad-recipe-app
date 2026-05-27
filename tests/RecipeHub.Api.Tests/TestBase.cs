@@ -8,7 +8,7 @@ namespace RecipeHub.Api.Tests;
 
 /// <summary>
 /// Shared WebApplicationFactory for integration tests. Uses a unique
-/// temp-file SQLite database per factory instance so every test class gets
+/// SQLite database file under the test output directory per factory instance so every test class gets
 /// an isolated DB with migrations applied and <see cref="SeedData"/> populated
 /// (Program.cs runs both at startup). The file is deleted on disposal.
 ///
@@ -17,9 +17,14 @@ namespace RecipeHub.Api.Tests;
 /// </summary>
 public sealed class RecipeApiFactory : WebApplicationFactory<Program>
 {
-    private readonly string _dbPath = Path.Combine(
-        Path.GetTempPath(),
-        $"recipehub-test-{Guid.NewGuid():N}.db");
+    private readonly string _dbDirectory = Path.Combine(AppContext.BaseDirectory, "test-dbs");
+    private readonly string _dbPath;
+
+    public RecipeApiFactory()
+    {
+        Directory.CreateDirectory(_dbDirectory);
+        _dbPath = Path.Combine(_dbDirectory, $"recipehub-test-{Guid.NewGuid():N}.db");
+    }
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
@@ -61,4 +66,3 @@ public sealed class RecipeApiFactory : WebApplicationFactory<Program>
         }
     }
 }
-

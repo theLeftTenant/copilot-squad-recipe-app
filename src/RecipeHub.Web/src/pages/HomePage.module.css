@@ -33,8 +33,7 @@
   gap: 1rem;
 }
 
-.meta {
-  color: #666;
-  font-size: 0.85rem;
-  margin-top: 0.5rem;
+.notice {
+  margin: 0 0 1rem;
+  color: #991b1b;
 }

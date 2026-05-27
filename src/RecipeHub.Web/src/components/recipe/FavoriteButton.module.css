@@ -1,0 +1,25 @@
+.wrapper {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.35rem;
+}
+
+.button {
+  min-width: 5.5rem;
+}
+
+.active {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.active:hover:not(:disabled) {
+  background: #fecaca;
+}
+
+.error {
+  color: #a33;
+  font-size: 0.8rem;
+  text-align: right;
+}

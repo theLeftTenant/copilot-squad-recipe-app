@@ -59,3 +59,20 @@ export interface ShareDto {
   token: string;
   url: string;
 }
+
+export interface AddFavoriteRequest {
+  recipeId: number;
+}
+
+export interface FavoriteRecipe {
+  recipeId: number;
+  title: string;
+  description: string | null;
+  difficulty: Difficulty;
+  prepTimeMinutes: number;
+  cookTimeMinutes: number;
+  servings: number;
+  imageUrl: string | null;
+  tagNames: string[];
+  favoritedAt: string;
+}

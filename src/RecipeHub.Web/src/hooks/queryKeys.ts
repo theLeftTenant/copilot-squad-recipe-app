@@ -15,3 +15,7 @@ export const tagKeys = {
 export const shareKeys = {
   byToken: (token: string) => ['shared', token] as const,
 };
+
+export const favoriteKeys = {
+  all: ['favorites'] as const,
+};

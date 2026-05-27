@@ -1,13 +1,20 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { Button, Card, Spinner } from '../components/ui';
-import { useRecipes } from '../hooks';
+import { RecipeCard } from '../components/recipe';
+import { Button, Spinner } from '../components/ui';
+import { useFavorites, useRecipes } from '../hooks';
 import styles from './HomePage.module.css';
 
 export function HomePage() {
   const navigate = useNavigate();
   const { data, isLoading } = useRecipes();
+  const favorites = useFavorites();
 
   const featured = (data ?? []).slice(0, 3);
+  const favoriteIds = new Set(
+    (favorites.data ?? []).map((favorite) => favorite.recipeId)
+  );
+  const favoritesDisabled = favorites.isLoading || favorites.isError;
+  const favoritesUnavailable = favorites.isError;
 
   return (
     <div>
@@ -32,6 +39,9 @@ export function HomePage() {
 
       <section className={styles.featured}>
         <h2>Featured</h2>
+        {favoritesUnavailable ? (
+          <p className={styles.notice}>Favorites are unavailable right now.</p>
+        ) : null}
         {isLoading ? (
           <Spinner label="Loading featured recipes…" />
         ) : featured.length === 0 ? (
@@ -39,16 +49,16 @@ export function HomePage() {
         ) : (
           <div className={styles.strip}>
             {featured.map((r) => (
-              <Card
+              <RecipeCard
                 key={r.id}
-                title={r.title}
+                recipe={r}
+                isFavorite={favoriteIds.has(r.id)}
+                favoritesDisabled={favoritesDisabled}
+                favoritesNotice={
+                  favoritesUnavailable ? 'Favorites are unavailable right now.' : undefined
+                }
                 onClick={() => navigate(`/recipes/${r.id}`)}
-              >
-                <p>{r.description ?? 'No description.'}</p>
-                <div className={styles.meta}>
-                  {r.difficulty} · {r.prepTimeMinutes + r.cookTimeMinutes} min
-                </div>
-              </Card>
+              />
             ))}
           </div>
         )}

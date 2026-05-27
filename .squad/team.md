@@ -16,6 +16,7 @@
 | Hicks | Frontend Dev | `.squad/agents/hicks/charter.md` | ✅ Active |
 | Bishop | Backend Dev | `.squad/agents/bishop/charter.md` | ✅ Active |
 | Newt | Tester | `.squad/agents/newt/charter.md` | ✅ Active |
+| Vasquez | DevOps | `.squad/agents/vasquez/charter.md` | ✅ Active |
 | Scribe | Session Logger | `.squad/agents/scribe/charter.md` | 📋 Silent |
 | Ralph | Work Monitor | — | 🔄 Monitor |
 

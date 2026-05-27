@@ -9,6 +9,7 @@ How to decide who handles what.
 | Frontend / UI | Hicks | React pages, TypeScript hooks, CSS modules, navigation flows, client-side API integration |
 | Backend / API / Data | Bishop | Minimal API endpoints, EF Core models, SQLite persistence, DTOs, share/search/favorites behavior |
 | Testing / QA | Newt | xUnit and Vitest coverage, regressions, reproduction steps, acceptance checks, bug verification |
+| DevOps / CI/CD | Vasquez | GitHub Actions workflows, Dockerfiles, container builds, release automation, deployment wiring |
 | Code review | Ralph | Review queue checks, handoff monitoring, reviewer routing, merge-readiness follow-up |
 | Scope & priorities | Ripley | Backlog cuts, sequencing, architectural trade-offs, cross-team escalation |
 | Session logging | Scribe | Decision capture, session summaries, history updates, cross-agent memory propagation |
@@ -20,6 +21,7 @@ How to decide who handles what.
 | `src/RecipeHub.Web/` | Hicks | Newt |
 | `src/RecipeHub.Api/` | Bishop | Newt |
 | `tests/` | Newt | Ripley |
+| `.github/workflows/`, `Dockerfile*`, `.devcontainer/` | Vasquez | Ripley |
 | `.squad/` coordination files | Ripley | Scribe |
 
 ## Issue Routing
@@ -31,6 +33,7 @@ How to decide who handles what.
 | `squad:hicks` | Build or fix frontend/UI work in `RecipeHub.Web` | Hicks |
 | `squad:bishop` | Build or fix backend/API/data work in `RecipeHub.Api` | Bishop |
 | `squad:newt` | Add or update tests, reproduce bugs, and verify fixes | Newt |
+| `squad:vasquez` | Own GitHub workflows, Dockerfiles, containers, and CI/CD automation | Vasquez |
 
 ### How Issue Assignment Works
 
@@ -38,12 +41,14 @@ How to decide who handles what.
 2. **Ralph** watches the queue and flags stalled or misrouted work, but **Ripley** owns the final routing call.
 3. When a `squad:{member}` label is applied, that named member picks up the issue in their next session.
 4. **Newt** joins early on risky changes so regression coverage is designed before implementation is finished.
-5. **Scribe** logs the meaningful outcomes after substantial work without blocking delivery.
+5. **Vasquez** owns delivery pipeline changes so CI/CD work does not get split across product specialists.
+6. **Scribe** logs the meaningful outcomes after substantial work without blocking delivery.
 
 ## Rules
 
 1. **Lead with the primary domain.** Hicks owns UI-first changes; Bishop owns API/data-first changes.
 2. **Escalate seams to Ripley.** Anything that changes contracts, priorities, or delivery sequence goes through Ripley.
 3. **Bring Newt in before the end.** Testing is part of implementation, not a final afterthought.
-4. **Ralph monitors flow, not product scope.** Ralph checks readiness and routing, then hands product decisions back to Ripley.
-5. **Scribe stays silent.** Scribe updates logs and decisions in the background and never becomes the delivery owner.
+4. **Route pipeline work to Vasquez.** Workflows, Dockerfiles, and delivery automation belong with the DevOps owner instead of being tacked onto feature work.
+5. **Ralph monitors flow, not product scope.** Ralph checks readiness and routing, then hands product decisions back to Ripley.
+6. **Scribe stays silent.** Scribe updates logs and decisions in the background and never becomes the delivery owner.
