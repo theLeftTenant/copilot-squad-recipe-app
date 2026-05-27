@@ -6,34 +6,44 @@ How to decide who handles what.
 
 | Work Type | Route To | Examples |
 |-----------|----------|----------|
-| {domain 1} | {Name} | {example tasks} |
-| {domain 2} | {Name} | {example tasks} |
-| {domain 3} | {Name} | {example tasks} |
-| Code review | {Name} | Review PRs, check quality, suggest improvements |
-| Testing | {Name} | Write tests, find edge cases, verify fixes |
-| Scope & priorities | {Name} | What to build next, trade-offs, decisions |
-| Session logging | Scribe | Automatic — never needs routing |
+| Frontend / UI | Hicks | React pages, TypeScript hooks, CSS modules, navigation flows, client-side API integration |
+| Backend / API / Data | Bishop | Minimal API endpoints, EF Core models, SQLite persistence, DTOs, share/search/favorites behavior |
+| Testing / QA | Newt | xUnit and Vitest coverage, regressions, reproduction steps, acceptance checks, bug verification |
+| Code review | Ralph | Review queue checks, handoff monitoring, reviewer routing, merge-readiness follow-up |
+| Scope & priorities | Ripley | Backlog cuts, sequencing, architectural trade-offs, cross-team escalation |
+| Session logging | Scribe | Decision capture, session summaries, history updates, cross-agent memory propagation |
+
+## Module Ownership
+
+| Module | Primary | Secondary |
+|--------|---------|-----------|
+| `src/RecipeHub.Web/` | Hicks | Newt |
+| `src/RecipeHub.Api/` | Bishop | Newt |
+| `tests/` | Newt | Ripley |
+| `.squad/` coordination files | Ripley | Scribe |
 
 ## Issue Routing
 
 | Label | Action | Who |
 |-------|--------|-----|
-| `squad` | Triage: analyze issue, assign `squad:{member}` label | Lead |
-| `squad:{name}` | Pick up issue and complete the work | Named member |
+| `squad` | Triage the issue, set the right `squad:{member}` label, and define the handoff | Ripley |
+| `squad:ripley` | Own scope, architecture, and unblock cross-cutting work | Ripley |
+| `squad:hicks` | Build or fix frontend/UI work in `RecipeHub.Web` | Hicks |
+| `squad:bishop` | Build or fix backend/API/data work in `RecipeHub.Api` | Bishop |
+| `squad:newt` | Add or update tests, reproduce bugs, and verify fixes | Newt |
 
 ### How Issue Assignment Works
 
-1. When a GitHub issue gets the `squad` label, the **Lead** triages it — analyzing content, assigning the right `squad:{member}` label, and commenting with triage notes.
-2. When a `squad:{member}` label is applied, that member picks up the issue in their next session.
-3. Members can reassign by removing their label and adding another member's label.
-4. The `squad` label is the "inbox" — untriaged issues waiting for Lead review.
+1. When a GitHub issue gets the `squad` label, **Ripley** triages it, chooses the primary owner, and leaves concise handoff notes.
+2. **Ralph** watches the queue and flags stalled or misrouted work, but **Ripley** owns the final routing call.
+3. When a `squad:{member}` label is applied, that named member picks up the issue in their next session.
+4. **Newt** joins early on risky changes so regression coverage is designed before implementation is finished.
+5. **Scribe** logs the meaningful outcomes after substantial work without blocking delivery.
 
 ## Rules
 
-1. **Eager by default** — spawn all agents who could usefully start work, including anticipatory downstream work.
-2. **Scribe always runs** after substantial work, always as `mode: "background"`. Never blocks.
-3. **Quick facts → coordinator answers directly.** Don't spawn an agent for "what port does the server run on?"
-4. **When two agents could handle it**, pick the one whose domain is the primary concern.
-5. **"Team, ..." → fan-out.** Spawn all relevant agents in parallel as `mode: "background"`.
-6. **Anticipate downstream work.** If a feature is being built, spawn the tester to write test cases from requirements simultaneously.
-7. **Issue-labeled work** — when a `squad:{member}` label is applied to an issue, route to that member. The Lead handles all `squad` (base label) triage.
+1. **Lead with the primary domain.** Hicks owns UI-first changes; Bishop owns API/data-first changes.
+2. **Escalate seams to Ripley.** Anything that changes contracts, priorities, or delivery sequence goes through Ripley.
+3. **Bring Newt in before the end.** Testing is part of implementation, not a final afterthought.
+4. **Ralph monitors flow, not product scope.** Ralph checks readiness and routing, then hands product decisions back to Ripley.
+5. **Scribe stays silent.** Scribe updates logs and decisions in the background and never becomes the delivery owner.

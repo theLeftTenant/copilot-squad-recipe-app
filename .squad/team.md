@@ -1,6 +1,6 @@
 # Squad Team
 
-> copilot-squad-recipe-app
+> Full-stack recipe management app for creating, editing, sharing, and cooking recipes during the GitHub Copilot & Squad Developer Workflow Hackathon.
 
 ## Coordinator
 
@@ -12,8 +12,49 @@
 
 | Name | Role | Charter | Status |
 |------|------|---------|--------|
+| Ripley | Lead | `.squad/agents/ripley/charter.md` | ✅ Active |
+| Hicks | Frontend Dev | `.squad/agents/hicks/charter.md` | ✅ Active |
+| Bishop | Backend Dev | `.squad/agents/bishop/charter.md` | ✅ Active |
+| Newt | Tester | `.squad/agents/newt/charter.md` | ✅ Active |
+| Scribe | Session Logger | `.squad/agents/scribe/charter.md` | 📋 Silent |
+| Ralph | Work Monitor | — | 🔄 Monitor |
+
+## Coding Agent
+
+<!-- copilot-auto-assign: false -->
+
+| Name | Role | Charter | Status |
+|------|------|---------|--------|
+| @copilot | Coding Agent | — | 🤖 Coding Agent |
+
+### Capabilities
+
+**🟢 Good fit — auto-route when enabled:**
+- Bug fixes with clear reproduction steps
+- Test coverage (adding missing tests, fixing flaky tests)
+- Lint/format fixes and code style cleanup
+- Dependency updates and version bumps
+- Small isolated features with clear specs
+- Boilerplate/scaffolding generation
+- Documentation fixes and README updates
+
+**🟡 Needs review — route to @copilot but flag for squad member PR review:**
+- Medium features with clear specs and acceptance criteria
+- Refactoring with existing test coverage
+- API endpoint additions following established patterns
+- Migration scripts with well-defined schemas
+
+**🔴 Not suitable — route to squad member instead:**
+- Architecture decisions and system design
+- Multi-system integration requiring coordination
+- Ambiguous requirements needing clarification
+- Security-critical changes (auth, encryption, access control)
+- Performance-critical paths requiring benchmarking
+- Changes requiring cross-team discussion
 
 ## Project Context
 
-- **Project:** copilot-squad-recipe-app
-- **Created:** 2026-05-27
+- **Owner:** Adam Dunkerley
+- **Stack:** .NET Aspire 13.2, .NET 10 Minimal API, EF Core 10, SQLite, React 19, TypeScript, Vite 6, TanStack Query v5, xUnit, and Vitest
+- **Description:** Full-stack recipe management app for creating, editing, sharing, and cooking recipes during the GitHub Copilot & Squad Developer Workflow Hackathon.
+- **Created:** 2026-05-27T11:27:25.883-05:00
